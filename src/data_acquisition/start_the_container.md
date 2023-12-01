@@ -1,3 +1,3 @@
-docker build -t my_mongo_image .
+docker build -t open_data_hack_2023_image .
 
-docker run -d -p 27017:27017 --name my_mongo_container my_mongo_image
+docker run -d -p 27017:27017 --name open_data_hack_2023_container open_data_hack_2023_image

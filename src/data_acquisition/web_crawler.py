@@ -103,6 +103,6 @@ url_list = [
 
 ]
 # Create the Web Crawler object
-crawler = WebCrawler(url_list, "my_database", "my_collection")
+crawler = WebCrawler(url_list, "open_data_hack_2023", "data_hack_2023")
 # Download and store the Data
 crawler.download_and_store()
