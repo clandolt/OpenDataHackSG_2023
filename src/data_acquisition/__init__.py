@@ -1,1 +1,1 @@
-print('Hallo')
+from .web_crawler import WebCrawler
