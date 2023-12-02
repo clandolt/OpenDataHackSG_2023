@@ -1,4 +1,5 @@
 import pymongo
+from bson import ObjectId
 
 class DataHandler:
     """
@@ -61,6 +62,20 @@ class DataHandler:
         for result in results:
             places.append((result['_id'], result.get('name', 'N/A')))
         return places
+    
+    def get_json_values(self, id : str):
+        # Example ObjectId (replace with your specific _id)
+        document_id = ObjectId(id)
+
+        # Find document by _id
+        result = self.collection.find_one({"_id": document_id})
+
+        if result:
+            return result
+        else:
+            raise Exception("Document not found")
+
+
 
     def close_connection(self) -> None:
         """
