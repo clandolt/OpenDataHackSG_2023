@@ -1,55 +1,102 @@
-json_value = {
-    "people": [
-        {
-            "name": "John Doe",
-            "age": 30,
-            "address": {
-                "city": "New York",
-                "state": "NY"
-            },
-            "is_student": False,
-            "hobbies": ["reading", "traveling"]
-        },
-        {
-            "name": "Anna Smith",
-            "age": 25,
-            "address": {
-                "city": "San Francisco",
-                "state": "CA"
-            },
-            "is_student": True,
-            "hobbies": ["painting", "gardening"]
-        }
-    ]
-}
-
 json_schema = {
-    "type": "object",
-    "properties": {
-        "people": {
-            "type": "array",
-            "items": {
-                "type": "object",
-                "properties": {
-                    "name": {"type": "string"},
-                    "age": {"type": "integer"},
-                    "address": {
-                        "type": "object",
-                        "properties": {
-                            "city": {"type": "string"},
-                            "state": {"type": "string"}
-                        },
-                        "required": ["city", "state"]
-                    },
-                    "is_student": {"type": "boolean"},
-                    "hobbies": {
-                        "type": "array",
-                        "items": {"type": "string"}
-                    }
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "$ref": "#/definitions/OpenData",
+    "definitions": {
+        "OpenData": {
+            "type": "object",
+            "additionalProperties": False,
+            "properties": {
+                "_id": {
+                    "$ref": "#/definitions/ID"
                 },
-                "required": ["name", "age", "address", "is_student", "hobbies"]
-            }
+                "id": {
+                    "type": "string",
+                    "format": "uuid"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "category": {
+                    "type": "string"
+                },
+                "accessibility": {
+                    "$ref": "#/definitions/Accessibility"
+                },
+                "pathClassifications": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/PathClassification"
+                    }
+                }
+            },
+            "required": [
+                "_id",
+                "accessibility",
+                "category",
+                "id",
+                "name",
+                "pathClassifications"
+            ],
+            "title": "OpenData"
+        },
+        "ID": {
+            "type": "object",
+            "additionalProperties": False,
+            "properties": {
+                "$oid": {
+                    "type": "string"
+                }
+            },
+            "required": [
+                "$oid"
+            ],
+            "title": "ID"
+        },
+        "PathClassification": {
+            "type": "object",
+            "additionalProperties": False,
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "presetKey": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "accessibility": {
+                    "$ref": "#/definitions/Accessibility"
+                },
+                "key": {
+                    "type": "string"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "isActive": {
+                    "type": "boolean"
+                }
+            },
+            "required": [
+                "accessibility",
+                "description",
+                "id",
+                "isActive",
+                "key",
+                "name",
+                "presetKey"
+            ],
+            "title": "PathClassification"
+        },
+        "Accessibility": {
+            "type": "string",
+            "enum": [
+                "Completely accessible",
+                "Not easily accessible",
+                "Partially accessible"
+            ],
+            "title": "Accessibility"
         }
-    },
-    "required": ["people"]
+    }
 }
