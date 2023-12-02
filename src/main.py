@@ -2,6 +2,7 @@ from settings import ProjectSettings
 from json_query_engine import QueryEngine
 from json_query_engine import json_schema
 from data_handler import DataHandler
+from dash_app import OpenDataDashApp
 if __name__ == '__main__':
     print("Project entry point")
     # Usage
@@ -24,3 +25,7 @@ if __name__ == '__main__':
         print(e)
     data_handler.close_connection()
 
+    #open_data_app = OpenDataDashApp(dash_places)
+    open_data_app = OpenDataDashApp(places)
+    
+    open_data_app.run_server()
