@@ -61,7 +61,7 @@ class DataHandler:
         places = []
         for result in results:
             places.append((result['_id'], result.get('name', 'N/A')))
-        return places
+        return list(set(name for _, name in places if name != 'N/A'))
     
     def get_json_values(self, id : str):
         # Example ObjectId (replace with your specific _id)

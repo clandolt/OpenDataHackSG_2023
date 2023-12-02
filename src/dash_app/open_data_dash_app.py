@@ -15,12 +15,11 @@ encoded_image = base64.b64encode(open(imagepath, 'rb').read())
 
 class OpenDataDashApp:
     def __init__(self, places):
-        dash_places = []
+        dash_places = places
+        self._observers = []
         self.limitations_value = ""
         self.text_input_value = ""
         self.selected_dropdown_value = ""
-        for id, place in places:        
-            dash_places.append(place)
 
 
 
@@ -139,8 +138,19 @@ class OpenDataDashApp:
         )
         def update_output2(n_clicks):
             if n_clicks==1:
+                self.notify((self.selected_dropdown_value, self.limitations_value, self.text_input_value))
                 print("Button clicked", n_clicks)
                 print(self.selected_dropdown_value)
 
     def run_server(self, debug=True):
         self.app.run_server(debug=debug)
+
+    def attach(self, observer):
+        self._observers.append(observer)
+
+    def detach(self, observer):
+        self._observers.remove(observer)
+
+    def notify(self, query):
+        for observer in self._observers:
+            observer.update(query)   

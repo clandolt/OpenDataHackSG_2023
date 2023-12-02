@@ -1,12 +1,15 @@
 from settings import ProjectSettings
-from json_query_engine import QueryEngine
-from json_query_engine import json_schema
 from data_handler import DataHandler
 from dash_app import OpenDataDashApp
+from observer import FrontendObserver, BackendObserver
 if __name__ == '__main__':
     print("Project entry point")
     # Usage
     config = ProjectSettings.get_instance()
+
+    # Creating observers
+    frontend_observer = FrontendObserver()
+    backend_observer = BackendObserver()
 
     """
     query_engine = QueryEngine(config.OPENAI_API_KEY, json_value, json_schema)
@@ -16,16 +19,9 @@ if __name__ == '__main__':
     """
     data_handler = DataHandler(config.DB_SERVER, config.DB_PORT, config.DB_NAME, config.COLLECTION_NAME)
     places = data_handler.get_places()
+    print(places)
 
-    try:
-        json_document = data_handler.get_json_values('656b62ad6fada3f2c0b08d5c')
-        query_engine = QueryEngine(config.OPENAI_API_KEY, json_document, json_schema)
-        print(query_engine.get_nl_response("Quel est le degré d'accessibilité de l'escalier du Naturmuseum St. Gallen?"))
-    except Exception as e:
-        print(e)
-    data_handler.close_connection()
-
-    #open_data_app = OpenDataDashApp(dash_places)
     open_data_app = OpenDataDashApp(places)
+    open_data_app.attach(backend_observer)
     
     open_data_app.run_server()
