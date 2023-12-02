@@ -26,12 +26,15 @@ class WebCrawler:
         This function stores the JSON-Data
     """
 
-    def __init__(self, url_list, database_name, collection_name):
+    def __init__(self, url_list, server_name, server_port, database_name, collection_name):
         """
         Parameters
         ----------
         url_list : list[str]
             List of urls to the JSON-Files as string.
+
+        server_name : str
+        server_port : str
         database_name : str
             Name of the Database
         collection_name : str
@@ -40,6 +43,8 @@ class WebCrawler:
         self.url_list = url_list
         self.database_name = database_name
         self.collection_name = collection_name
+        self.server_name = server_name
+        self.server_port = server_port
 
     def download_and_store(self) -> None:
         """
@@ -77,7 +82,7 @@ class WebCrawler:
         data : dict
             The JSON-File as dict
         """
-        client = pymongo.MongoClient("mongodb://localhost:27017/")
+        client = pymongo.MongoClient(f"mongodb://{self.server_name}:{self.server_port}/")
         db = client[self.database_name]
         collection = db[self.collection_name]
         collection.insert_one(data)

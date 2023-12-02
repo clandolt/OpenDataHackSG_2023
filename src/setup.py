@@ -1,5 +1,9 @@
+from settings import ProjectSettings
 from data_acquisition import WebCrawler
 if __name__ == '__main__':
+    # Load the Project Settings
+    config = ProjectSettings.get_instance()
+
     # Define the list of URLs
     url_list = [
         'https://api.ginto.guide/entries/b840c301-5c17-455b-9768-e67c0e9812f0',
@@ -20,6 +24,6 @@ if __name__ == '__main__':
 
     ]
     # Create the Web Crawler object
-    crawler = WebCrawler(url_list, "open_data_hack_2023", "data_hack_2023")
+    crawler = WebCrawler(url_list, config.DB_SERVER, config.DB_PORT, config.DB_NAME, config.COLLECTION_NAME)
     # Download and store the Data
     crawler.download_and_store()
