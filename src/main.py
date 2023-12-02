@@ -1,4 +1,6 @@
 from settings import ProjectSettings
+from json_query_engine import QueryEngine
+from json_query_engine import json_value, json_schema
 if __name__ == '__main__':
     print("Project entry point")
     # Usage
@@ -10,3 +12,9 @@ if __name__ == '__main__':
     print(config.DB_PORT)
     print(config.DB_NAME)
     print(config.COLLECTION_NAME)
+
+    query_engine = QueryEngine(config.OPENAI_API_KEY, json_value, json_schema)
+    print(query_engine.get_nl_response("How old is Anna Smith?"))
+    print(query_engine.get_raw_response("How old is Anna Smith?"))
+    
+
