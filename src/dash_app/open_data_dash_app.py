@@ -20,6 +20,7 @@ class OpenDataDashApp:
         self.limitations_value = ""
         self.text_input_value = ""
         self.selected_dropdown_value = ""
+        self.answer = ""
 
 
 
@@ -44,6 +45,8 @@ class OpenDataDashApp:
         )
         content = html.Div(
             [
+                html.Div(id='output', style={'display': 'none'}),
+                dcc.Interval(id='interval-component', interval=2000, n_intervals=0),
                 dbc.Row(
                     [
                         dbc.Col(
@@ -117,7 +120,7 @@ class OpenDataDashApp:
    
     def setup_callbacks(self):
         @self.app.callback(
-            Output('output-textarea', 'value'),
+            Output('output', 'children'),
     
             [Input('pandas-dropdown-1', 'value'),
              Input('text-input', 'value'),
@@ -126,24 +129,33 @@ class OpenDataDashApp:
             prevent_initial_call=True
         )
         def update_output(selected_dropdown_value, text_input_value,limitations_value, value):
-            print(limitations_value,selected_dropdown_value, value)
             self.limitations_value = limitations_value
             self.text_input_value = text_input_value
             self.selected_dropdown_value = selected_dropdown_value
+            self.notify((self.selected_dropdown_value, self.limitations_value, self.text_input_value))
             return f'You selected: {selected_dropdown_value}\nText input: {text_input_value}\nText input: {limitations_value}'
         
         @self.app.callback(
             Output('container-button-basic', 'children'),
-            Input('submit-val', 'n_clicks')
+            Input('submit-val', 'n_clicks'),
+            prevent_initial_call=True
         )
         def update_output2(n_clicks):
             if n_clicks==1:
                 self.notify((self.selected_dropdown_value, self.limitations_value, self.text_input_value))
-                print("Button clicked", n_clicks)
-                print(self.selected_dropdown_value)
+
+        @self.app.callback(
+            Output('output-textarea', 'value'), 
+            [Input('interval-component', 'n_intervals')]
+            )
+        def update_value(n):
+            return str(self.answer)
 
     def run_server(self, debug=True):
         self.app.run_server(debug=debug)
+
+    def set_answer(self, answer):
+        self.answer = answer
 
     def attach(self, observer):
         self._observers.append(observer)

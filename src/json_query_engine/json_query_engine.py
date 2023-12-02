@@ -33,7 +33,7 @@ class QueryEngine:
         json_schema : dict
             A JSON file with the schema to query the data
         """
-        self.observers = []
+        self._observers = []
         os.environ["OPENAI_API_KEY"] = open_api_key
         openai.api_key = os.environ["OPENAI_API_KEY"]
 

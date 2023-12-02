@@ -76,6 +76,11 @@ class DataHandler:
             raise Exception("Document not found")
 
 
+    def get_document_id(self, search_name, search_category):
+        result = self.collection.find_one({"name": search_name, "category": search_category})
+
+        if result:
+            return str(result["_id"])
 
     def close_connection(self) -> None:
         """

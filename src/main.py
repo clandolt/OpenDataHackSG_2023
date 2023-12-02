@@ -9,7 +9,7 @@ if __name__ == '__main__':
 
     # Creating observers
     frontend_observer = FrontendObserver()
-    backend_observer = BackendObserver()
+    backend_observer = BackendObserver(frontend_observer)
 
     """
     query_engine = QueryEngine(config.OPENAI_API_KEY, json_value, json_schema)
@@ -19,9 +19,10 @@ if __name__ == '__main__':
     """
     data_handler = DataHandler(config.DB_SERVER, config.DB_PORT, config.DB_NAME, config.COLLECTION_NAME)
     places = data_handler.get_places()
-    print(places)
+    #data_handler.close_connection()
 
     open_data_app = OpenDataDashApp(places)
+    frontend_observer.set_dash_app(open_data_app)
     open_data_app.attach(backend_observer)
     
     open_data_app.run_server()
