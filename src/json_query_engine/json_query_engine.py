@@ -33,6 +33,7 @@ class QueryEngine:
         json_schema : dict
             A JSON file with the schema to query the data
         """
+        self.observers = []
         os.environ["OPENAI_API_KEY"] = open_api_key
         openai.api_key = os.environ["OPENAI_API_KEY"]
 
@@ -83,4 +84,14 @@ class QueryEngine:
             The answer as JSON answer
         """
         return self.raw_query_engine.query(query,)
+    
+    def attach(self, observer):
+        self._observers.append(observer)
+
+    def detach(self, observer):
+        self._observers.remove(observer)
+
+    def notify(self, answer):
+        for observer in self._observers:
+            observer.update(answer)   
 
