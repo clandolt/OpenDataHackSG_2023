@@ -10,8 +10,11 @@ import os
 current_directory = os.path.dirname(os.path.abspath(__file__))
 
 # Load the .env file from the current directory
-imagepath = os.path.join(current_directory, 'your_logo.png')
+imagepath = os.path.join(current_directory, 'Sitios_logotype_color_PNG.png')
 encoded_image = base64.b64encode(open(imagepath, 'rb').read())
+
+imagepath2 = os.path.join(current_directory, 'LinkedIn.png')
+encoded_image2 = base64.b64encode(open(imagepath2, 'rb').read())
 
 class OpenDataDashApp:
     def __init__(self, places):
@@ -35,9 +38,72 @@ class OpenDataDashApp:
             [
                 dbc.Row(
                     [
-                    html.H1("Sitios"),
+                         html.A( href="https://www.sitios.info/",
+                                children=[html.Img(src=f"data:image/jpg;base64,{encoded_image.decode()}", alt="Your Image Description",style={"align": "right",'width': '60%'})]
+                            )], style={"height": "10vh"}
+
+                ),
+                dbc.Row(
+                    [
                     html.P("Willkomen zum Projekt der Gruppe MEGATRON ON ICE zur Challange: Umfassende Informationen - einfach erklärt."),
+                    
+                    ], style={"height": "15vh"}
+
+                ),
+                dbc.Row(
+                    [
+                    html.P("Challenge Owner:"),
                     ], style={"height": "5vh"}
+
+                ),
+                dbc.Row(
+                    [
+                    
+                    html.P("Christoph Inhelder"),
+                    html.A( href="https://www.linkedin.com/in/christoph-inhelder/",
+                                children=[html.Img(src=f"data:image/jpg;base64,{encoded_image2.decode()}", alt="Your Image Description",style={"align": "right",'width': '10%'})]
+                            ),
+                    ], style={"height": "10vh"}
+
+                ),
+                dbc.Row(
+                    [
+                    html.P(""),
+                    ], style={"height": "5vh"}
+
+                ),
+                dbc.Row(
+                    [
+                    html.P("Creater:"),
+                    ], style={"height": "5vh"}
+
+                ),
+                dbc.Row(
+                    [
+                    
+                    html.P("Christoph Landolt"),
+                    html.A( href="https://www.linkedin.com/in/christoph-landolt-072068b1/",
+                                children=[html.Img(src=f"data:image/jpg;base64,{encoded_image2.decode()}", alt="Your Image Description",style={"align": "right",'width': '10%'})]
+                            ),
+                    ], style={"height": "10vh"}
+
+                ),
+                dbc.Row(
+                    [
+                    html.P("Ruwen Frick"),                    
+                    html.A( href="https://www.linkedin.com/in/ruwen-frick-5527b6197/",
+                                children=[html.Img(src=f"data:image/jpg;base64,{encoded_image2.decode()}", alt="Your Image Description",style={"align": "right",'width': '10%'})]
+                            ),
+                    ], style={"height": "10vh"}
+
+                ),
+                dbc.Row(
+                    [
+                    html.P("Noah Lüchinger"),
+                    html.A( href="https://www.linkedin.com/in/noah-l%C3%BCchinger-8495b5236/",
+                                children=[html.Img(src=f"data:image/jpg;base64,{encoded_image2.decode()}", alt="Your Image Description",style={"align": "right",'width': '10%'})]
+                            ),
+                    ], style={"height": "10vh"}
 
                 )
             ]
@@ -47,43 +113,43 @@ class OpenDataDashApp:
             [
                 dbc.Row(
                     [
-                        dbc.Col(
-                            [
-                               html.H1("MEGATRON ON ICE"),
-                                ]),
-                        dbc.Col(
-                            [
-                                html.Img(src=f"data:image/jpg;base64,{encoded_image.decode()}", alt="Your Image Description")    
-                                ])
+                         html.H1("MEGATRON ON ICE",style={'width': '80vh'})
+                        
                     ],
                     style={"height":"10vh"}),
                 dbc.Row(
                     [
                         dbc.Col(
                             [
+                                html.Label('Stell eine Frage und drücke Enter:'),
                                 dcc.Input(
                                         id='text-input',
                                         type='text',
                                         value='',  # Initial value is empty
-                                        placeholder='Enter text...'
-                                    ),
-                                    html.Button('Submit', id='submit-val', n_clicks=0),
-                                    html.Div(id='container-button-basic',
-                                    children='Enter a value and press submit')
+                                        placeholder='Enter text...',
+                                        style={'width': '80vh','height':'40px'},
+                                    )
                             ]),
                             dbc.Col(
                             [
-                                html.Label('Select a value from the dropdown:'),
-                                dcc.Dropdown(places, id='pandas-dropdown-1',value='opt1'),  # default selected value),
+                                html.Label('Wähle einen Ort:'),
+                                dcc.Dropdown(places, id='pandas-dropdown-1',value='opt1',style={'height':'40px'}),  # default selected value),
                                 html.Div(id='pandas-output-container-1')
                                             ])
                         ],
-                        style={"height": "20vh"}),
+                        style={"height": "10vh"}),
+                dbc.Row(
+                    [
+                        html.Button('Enter', id='submit-val', n_clicks=0,style={'height':'40px','width': '80px', 'margin-left': '10px'}),
+                        html.Div(id='container-button-basic',
+                        children='Enter a value and press submit')
+                    ],
+                    style={"height": "8vh"}),
                 dbc.Row(
                     [
                         dcc.RadioItems(['Active wheelchair', 'No limitations', 'E-wheelchair' ,'Stroller', 'Scewo BRO'],'No limitations',inline=True,id='limitations')
                     ],
-                    style={"height": "50vh"}),
+                    style={"height": "5vh"}),
                 dbc.Row(
                     [
                         dbc.Col(
