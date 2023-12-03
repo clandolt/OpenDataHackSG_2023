@@ -161,3 +161,6 @@ cython_debug/
 src/data_acquisition/__pycache__/__init__.cpython-310.pyc
 src/data_acquisition/__pycache__/web_crawler.cpython-310.pyc
 .vscode/
+doku/.$setup.drawio.bkp
+doku/.$system.drawio.bkp
+doku/.$system.drawio.dtmp
