@@ -11,11 +11,13 @@ Die Aufgabenstellung besteht darin, genaue und detaillierte Informationen über 
 ## Lösungsansatz
  
 Um die Herausforderungen der aktuellen Informationsdarstellung zu bewältigen, wurde der folgende Lösungsansatz entwickelt:
+
 ![Alt text](system.jpg)
 
 ### 1. Auto-fetch und Clean JSON to NOSQL
  
 Die Lösung implementiert einen Webcrawler zum automatischen Herunterlaen der JSON-Dateien über die öffentlichen Gebäude. Diese Daten werden dann bereinigt, in einem klaren JSON-Format organisiert und in einer NOSQL-Datenbank gespeichert. Dieser Prozess gewährleistet, dass die Informationen aktuell und strukturiert sind.
+
 ![Alt text](setup.jpg)
  
 ### 2. LLAMA-Indexed Zugriff auf Echtzeit-Gebäudedaten
